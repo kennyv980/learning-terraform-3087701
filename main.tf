@@ -40,7 +40,6 @@ resource "aws_instance" "web" {
   }
 }
 
-
 module "alb" {
   source = "terraform-aws-modules/alb/aws"
 
@@ -69,7 +68,6 @@ module "alb" {
     Environment = "dev"
   }
 }
-
 
 module "web_sg" {
   source  = "terraform-aws-modules/security-group/aws"
