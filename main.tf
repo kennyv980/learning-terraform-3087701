@@ -50,6 +50,29 @@ resource "aws_instance" "web" {
   }
 }
 
+
+module "alb" {
+  source = "terraform-aws-modules/alb/aws"
+
+  name    = "web_alb"
+  vpc_id  = module.web_vpc.vpc_id
+  subnets = module.web_vpc.public_subnets
+  security_groups = module.web_sg.security_group_id
+
+
+  listeners = {
+    ex-http-https-redirect = {
+      port     = 80
+      protocol = "HTTP"
+    }
+  }
+
+  tags = {
+    Environment = "dev"
+  }
+}
+
+
 module "web_sg" {
   source  = "terraform-aws-modules/security-group/aws"
   version = "5.2.0"
