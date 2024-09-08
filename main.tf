@@ -54,7 +54,7 @@ resource "aws_instance" "web" {
 module "alb" {
   source = "terraform-aws-modules/alb/aws"
 
-  name    = "web_alb"
+  name    = "web-alb"
 
   vpc_id  = module.web_vpc.vpc_id
   subnets = module.web_vpc.public_subnets
