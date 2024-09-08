@@ -49,8 +49,8 @@ module "alb" {
   subnets            = module.web_vpc.public_subnets
   security_groups    = [module.web_sg.security_group_id]
 
-  listeners = {
-    ex-http-https-redirect = {
+  listeners = [
+    {
       port     = 80
       protocol = "HTTP"
       default_action = {
@@ -62,7 +62,7 @@ module "alb" {
         }
       }
     }
-  }
+  ]
 
   tags = {
     Environment = "dev"
