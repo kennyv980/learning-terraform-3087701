@@ -40,10 +40,11 @@ resource "aws_instance" "web" {
   }
 }
 
+
 module "alb" {
   source = "terraform-aws-modules/alb/aws"
 
-  name               = "web-alb"
+  name               = "web_alb"
   load_balancer_type = "application"
   vpc_id             = module.web_vpc.vpc_id
   subnets            = module.web_vpc.public_subnets
@@ -53,6 +54,14 @@ module "alb" {
     ex-http-https-redirect = {
       port     = 80
       protocol = "HTTP"
+      default_action = {
+        type = "redirect"
+        redirect = {
+          port        = "443"
+          protocol    = "HTTPS"
+          status_code = "HTTP_301"
+        }
+      }
     }
   }
 
@@ -60,6 +69,7 @@ module "alb" {
     Environment = "dev"
   }
 }
+
 
 module "web_sg" {
   source  = "terraform-aws-modules/security-group/aws"
