@@ -56,6 +56,7 @@ resource = "aws_security_group_rule" "web_https_in" {
   cidr_blocks = ["0.0.0.0/0"]
 
   security_group_id = aws_security_group.web.id
+}
 
   resource = "aws_security_group_rule" "web_everything_out" {
   type        = egress
@@ -65,3 +66,4 @@ resource = "aws_security_group_rule" "web_https_in" {
   cidr_blocks = ["0.0.0.0/0"]
 
   security_group_id = aws_security_group.web.id
+  }
